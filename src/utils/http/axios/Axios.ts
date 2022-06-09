@@ -143,7 +143,6 @@ export class VAxios {
         formData.append(key, params.data![key]);
       });
     }
-
     return this.axiosInstance.request<T>({
       ...config,
       method: 'POST',

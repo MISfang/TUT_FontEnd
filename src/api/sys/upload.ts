@@ -1,22 +1,23 @@
 import { UploadApiResult } from './model/uploadModel';
-import { defHttp } from '/@/utils/http/axios';
+import { FupLoaddefHttp } from '/@/utils/http/axios';
 import { UploadFileParams } from '/#/axios';
 import { useGlobSetting } from '/@/hooks/setting';
 
 const { uploadUrl = '' } = useGlobSetting();
 
+
 /**
  * @description: Upload interface
  */
-export function uploadApi(
+export const uploadApi = (
   params: UploadFileParams,
   onUploadProgress: (progressEvent: ProgressEvent) => void,
-) {
-  return defHttp.uploadFile<UploadApiResult>(
+) =>
+  FupLoaddefHttp.uploadFile<UploadApiResult>(
     {
       url: uploadUrl,
       onUploadProgress,
     },
     params,
   );
-}
+

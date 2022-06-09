@@ -1,12 +1,13 @@
-import { defHttp } from '/@/utils/http/axios';
+import { defHttp, FmydefHttp } from '/@/utils/http/axios';
 import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
 
 enum Api {
-  Login = '/login',
+  Login = '/node/admin/login',
+  Login2 = '/login',
   Logout = '/logout',
-  GetUserInfo = '/getUserInfo',
+  GetUserInfo = '/node/admin/getUserInfo',
   GetPermCode = '/getPermCode',
 }
 
@@ -14,7 +15,8 @@ enum Api {
  * @description: user login api
  */
 export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
-  return defHttp.post<LoginResultModel>(
+  window.localStorage.setItem('user', JSON.stringify(params));
+  return FmydefHttp.post<LoginResultModel>(
     {
       url: Api.Login,
       params,
@@ -29,7 +31,8 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
  * @description: getUserInfo
  */
 export function getUserInfo() {
-  return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: 'none' });
+  const data = JSON.parse(window.localStorage.getItem('user')!);
+  return FmydefHttp.post<GetUserInfoModel>({ url: Api.GetUserInfo, data }, { errorMessageMode: 'none' });
 }
 
 export function getPermCode() {

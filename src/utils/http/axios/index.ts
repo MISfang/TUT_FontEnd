@@ -151,6 +151,23 @@ const transform: AxiosTransform = {
    * @description: 响应拦截器处理
    */
   responseInterceptors: (res: AxiosResponse<any>) => {
+    //@ts-ignore
+    try {
+      if (res.data.message === '请求正常' || res.data.message === 'OK') {
+        res.data = {
+          ...res.data,
+          result: {
+            items: res.data.data,
+            total: res.data.length,
+          },
+          message: 'ok',
+          code: 0,
+          type: 'success',
+          data: null,
+        };
+      }
+    } catch (error) {
+    }
     return res;
   },
 
@@ -192,7 +209,7 @@ const transform: AxiosTransform = {
   },
 };
 
-function createAxios(opt?: Partial<CreateAxiosOptions>) {
+function createAxios(opt?: Partial<CreateAxiosOptions>, isUpload = false) {
   return new VAxios(
     deepMerge(
       {
@@ -200,11 +217,11 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // authentication schemes，e.g: Bearer
         // authenticationScheme: 'Bearer',
         authenticationScheme: '',
-        timeout: 10 * 1000,
+        timeout: 4 * 1000,
         // 基础接口地址
-        // baseURL: globSetting.apiUrl,
+        // baseURL: "127.0.0.1:7001",
 
-        headers: { 'Content-Type': ContentTypeEnum.JSON },
+        headers: { 'Content-Type': isUpload ? ContentTypeEnum.FORM_URLENCODED : ContentTypeEnum.JSON },
         // 如果是form-data格式
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
         // 数据处理方式
@@ -240,6 +257,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
   );
 }
 export const defHttp = createAxios();
+export const FmydefHttp = createAxios({});
+export const FupLoaddefHttp = createAxios({}, true);
 
 // other api url
 // export const otherHttp = createAxios({

@@ -71,8 +71,8 @@ export default {
     signUpFormTitle: 'Sign up',
     forgetFormTitle: 'Reset password',
 
-    signInTitle: 'Backstage management system',
-    signInDesc: 'Enter your personal details and get started!',
+    signInTitle: 'Background management system for TUT',
+    signInDesc: 'Focus on the campus life of science and engineering students',
     policy: 'I agree to the xxx Privacy Policy',
     scanSign: `scanning the code to complete the login`,
 
@@ -87,15 +87,17 @@ export default {
     loginSuccessDesc: 'Welcome back',
 
     // placeholder
-    accountPlaceholder: 'Please input username',
+    accountPlaceholder: 'Please input stuID',
     passwordPlaceholder: 'Please input password',
     smsPlaceholder: 'Please input sms code',
     mobilePlaceholder: 'Please input mobile',
     policyPlaceholder: 'Register after checking',
     diffPwd: 'The two passwords are inconsistent',
+    mynickName: 'Please input NickName',
 
-    userName: 'Username',
+    userName: 'StudentID',
     password: 'Password',
+    nickName: 'NickName',
     confirmPassword: 'Confirm Password',
     email: 'Email',
     smsCode: 'SMS code',

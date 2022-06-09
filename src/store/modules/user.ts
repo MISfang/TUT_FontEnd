@@ -38,6 +38,8 @@ export const useUserStore = defineStore({
     sessionTimeout: false,
     // Last fetch time
     lastUpdateTime: 0,
+    //@ts-ignore
+    imgUrlList: []
   }),
   getters: {
     getUserInfo(): UserInfo {
@@ -73,12 +75,17 @@ export const useUserStore = defineStore({
     setSessionTimeout(flag: boolean) {
       this.sessionTimeout = flag;
     },
+    setImgUrlList(imgUrlList) {
+      //@ts-ignore
+      this.imgUrlList = imgUrlList;
+    },
     resetState() {
       this.userInfo = null;
       this.token = '';
       this.roleList = [];
       this.sessionTimeout = false;
     },
+
     /**
      * @description: login
      */
@@ -89,17 +96,45 @@ export const useUserStore = defineStore({
       },
     ): Promise<GetUserInfoModel | null> {
       try {
-        const { goHome = true, mode, ...loginParams } = params;
+        const { mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
         const { token } = data;
-
+        //@ts-ignore
+        this.setUserInfo(data);
+        const { roles = [] } = data;
+        if (isArray(roles)) {
+          const roleList = roles.map((item) => item.value) as RoleEnum[];
+          this.setRoleList(roleList);
+        } else {
+          data.roles = [];
+          this.setRoleList([]);
+        }
+        const sessionTimeout = this.sessionTimeout;
+        if (sessionTimeout) {
+          this.setSessionTimeout(false);
+        } else {
+          const permissionStore = usePermissionStore();
+          if (!permissionStore.isDynamicAddedRoute) {
+            const routes = await permissionStore.buildRoutesAction();
+            routes.forEach((route) => {
+              router.addRoute(route as unknown as RouteRecordRaw);
+            });
+            router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
+            permissionStore.setDynamicAddedRoute(true);
+          }
+          await router.replace(data?.homePath || PageEnum.BASE_HOME)
+          await router.forward()
+        }
         // save token
         this.setToken(token);
-        return this.afterLoginAction(goHome);
+
+        //@ts-ignore
+        return data
       } catch (error) {
         return Promise.reject(error);
       }
     },
+
     async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
       if (!this.getToken) return null;
       // get user info
@@ -122,9 +157,11 @@ export const useUserStore = defineStore({
       }
       return userInfo;
     },
+
     async getUserInfoAction(): Promise<UserInfo | null> {
       if (!this.getToken) return null;
       const userInfo = await getUserInfo();
+
       const { roles = [] } = userInfo;
       if (isArray(roles)) {
         const roleList = roles.map((item) => item.value) as RoleEnum[];
