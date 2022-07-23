@@ -42,60 +42,60 @@
   </div>
 </template>
 <script setup lang="ts">
-import { BasicTable, useTable, TableAction } from "/@/components/Table";
-import { getBasicColumns, getFormConfig } from "../tableData1";
-import { getActionList, actionZhiDing, actionDelete } from "/@/api/demo/action";
-import { ref } from "vue";
-import Modal from "./modal.vue";
-import Modal2 from "./modal2.vue";
-import { useModal } from "/@/components/Modal";
-import { message } from "ant-design-vue";
+  import { BasicTable, useTable, TableAction } from '/@/components/Table';
+  import { getBasicColumns, getFormConfig } from '../tableData1';
+  import { getActionList, actionZhiDing, actionDelete } from '/@/api/demo/action';
+  import { ref } from 'vue';
+  import Modal from './modal.vue';
+  import Modal2 from './modal2.vue';
+  import { useModal } from '/@/components/Modal';
+  import { message } from 'ant-design-vue';
 
-const [registerTable, { reload }] = useTable({
-  title: "论坛列表",
-  api: getActionList,
-  columns: getBasicColumns(),
-  useSearchForm: true,
-  formConfig: getFormConfig(),
-  showTableSetting: true,
-  tableSetting: { fullScreen: true },
-  bordered: true,
-  showIndexColumn: false,
-  rowKey: "actionId",
-  titleHelpMessage: "动态表",
-  actionColumn: {
-    width: 160,
-    title: "操作组",
-    dataIndex: "action",
-    slots: { customRender: "action" },
-  },
-  pagination: {
-    pageSizeOptions: ["10", "20", "40"],
-    defaultPageSize: 10,
-    pageSize: 10,
-  },
-});
-const id = ref(5);
-const [registerModal, { openModal }] = useModal();
-const [registerModal2, { openModal: openModal2 }] = useModal();
+  const [registerTable, { reload }] = useTable({
+    title: '论坛列表',
+    api: getActionList,
+    columns: getBasicColumns(),
+    useSearchForm: true,
+    formConfig: getFormConfig(),
+    showTableSetting: true,
+    tableSetting: { fullScreen: true },
+    bordered: true,
+    showIndexColumn: false,
+    rowKey: 'actionId',
+    titleHelpMessage: '动态表',
+    actionColumn: {
+      width: 160,
+      title: '操作组',
+      dataIndex: 'action',
+      slots: { customRender: 'action' },
+    },
+    pagination: {
+      pageSizeOptions: ['10', '20', '40'],
+      defaultPageSize: 10,
+      pageSize: 10,
+    },
+  });
+  const id = ref(5);
+  const [registerModal, { openModal }] = useModal();
+  const [registerModal2, { openModal: openModal2 }] = useModal();
 
-const zhiding = ({ actionId, isTop }) => {
-  actionZhiDing(actionId).then(() => {
-    reload();
-    message.success(`${isTop ? "取消" : ""}置顶ID为${actionId}成功`);
-  });
-};
-const deleteHandle = ({ actionId }) => {
-  actionDelete(actionId).then(() => {
-    reload();
-    message.success(`删除ID为${actionId}成功`);
-  });
-};
-const createData = () => {
-  openModal();
-};
-const detailHandle = async ({ actionId }) => {
-  id.value = actionId;
-  openModal2();
-};
+  const zhiding = ({ actionId, isTop }) => {
+    actionZhiDing(actionId).then(() => {
+      reload();
+      message.success(`${isTop ? '取消' : ''}置顶ID为${actionId}成功`);
+    });
+  };
+  const deleteHandle = ({ actionId }) => {
+    actionDelete(actionId).then(() => {
+      reload();
+      message.success(`删除ID为${actionId}成功`);
+    });
+  };
+  const createData = () => {
+    openModal();
+  };
+  const detailHandle = async ({ actionId }) => {
+    id.value = actionId;
+    openModal2();
+  };
 </script>

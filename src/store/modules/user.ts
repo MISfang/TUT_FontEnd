@@ -39,7 +39,7 @@ export const useUserStore = defineStore({
     // Last fetch time
     lastUpdateTime: 0,
     //@ts-ignore
-    imgUrlList: []
+    imgUrlList: [],
   }),
   getters: {
     getUserInfo(): UserInfo {
@@ -122,14 +122,14 @@ export const useUserStore = defineStore({
             router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
             permissionStore.setDynamicAddedRoute(true);
           }
-          await router.replace(data?.homePath || PageEnum.BASE_HOME)
-          await router.forward()
+          await router.replace(data?.homePath || PageEnum.BASE_HOME);
+          await router.forward();
         }
         // save token
         this.setToken(token);
 
         //@ts-ignore
-        return data
+        return data;
       } catch (error) {
         return Promise.reject(error);
       }

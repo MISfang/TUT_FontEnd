@@ -9,17 +9,16 @@ enum Api {
  * @description: Get sample list value
  */
 
-
 const getLostCardData = (data: any = {}) =>
   FmydefHttp.post({
     url: Api.DATA_LIST,
-    data
+    data,
   });
 
 const toggleIsPicked = (id: number) =>
   FmydefHttp.get({
     url: Api.TOGGLE_IS_PICKED,
-    params: { id }
+    params: { id },
   });
 
 export { getLostCardData, toggleIsPicked };

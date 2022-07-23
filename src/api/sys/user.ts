@@ -32,7 +32,10 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
  */
 export function getUserInfo() {
   const data = JSON.parse(window.localStorage.getItem('user')!);
-  return FmydefHttp.post<GetUserInfoModel>({ url: Api.GetUserInfo, data }, { errorMessageMode: 'none' });
+  return FmydefHttp.post<GetUserInfoModel>(
+    { url: Api.GetUserInfo, data },
+    { errorMessageMode: 'none' },
+  );
 }
 
 export function getPermCode() {

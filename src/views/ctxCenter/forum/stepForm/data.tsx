@@ -49,7 +49,7 @@ export const step1Schemas: FormSchema[] = [
 ];
 
 export const transFormType = (number) => {
-  let type: string = '';
+  let type = '';
   switch (+number) {
     case 1:
       type = '个人动态';

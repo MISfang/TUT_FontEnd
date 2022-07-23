@@ -1,5 +1,4 @@
-import { DescItem } from "/@/components/Description/index";
-
+import { DescItem } from '/@/components/Description/index';
 
 export const schema: DescItem[] = [
   {

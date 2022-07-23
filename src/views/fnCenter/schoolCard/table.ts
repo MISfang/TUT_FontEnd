@@ -53,32 +53,34 @@ export function getBasicColumns(): BasicColumn[] {
 export function getFormConfig(): Partial<FormProps> {
   return {
     labelWidth: 180,
-    schemas: [{
-      field: 'student_number',
-      label: '拾卡人学号搜索',
-      component: 'Input',
-      colProps: {
-        xl: 6,
-        xxl: 12,
+    schemas: [
+      {
+        field: 'student_number',
+        label: '拾卡人学号搜索',
+        component: 'Input',
+        colProps: {
+          xl: 6,
+          xxl: 12,
+        },
       },
-    },
-    {
-      field: 'number',
-      label: '丢失人学号搜索',
-      component: 'Input',
-      colProps: {
-        xl: 6,
-        xxl: 12,
+      {
+        field: 'number',
+        label: '丢失人学号搜索',
+        component: 'Input',
+        colProps: {
+          xl: 6,
+          xxl: 12,
+        },
       },
-    },
-    {
-      field: 'student_name',
-      label: '丢失人姓名搜索',
-      component: 'Input',
-      colProps: {
-        xl: 6,
-        xxl: 12,
+      {
+        field: 'student_name',
+        label: '丢失人姓名搜索',
+        component: 'Input',
+        colProps: {
+          xl: 6,
+          xxl: 12,
+        },
       },
-    }],
+    ],
   };
 }

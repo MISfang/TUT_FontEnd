@@ -12,35 +12,34 @@ enum Api {
  * @description: Get sample list value
  */
 
-
 const getActionList = (data: any = {}) =>
   FmydefHttp.post({
     url: Api.DATA_LIST,
-    data
+    data,
   });
 
 const actionZhiDing = (id: number) =>
   FmydefHttp.get({
     url: Api.ZHI_DING,
-    params: { id }
+    params: { id },
   });
 
 const actionDelete = (id: number) =>
   FmydefHttp.get({
     url: Api.DELETE,
-    params: { id }
+    params: { id },
   });
 
 const getActionDetail = (id: number) =>
   FmydefHttp.get({
     url: Api.DETAIL,
-    params: { id }
-  })
+    params: { id },
+  });
 
 const createAction = (params) =>
   FmydefHttp.post({
     url: Api.CREATE,
-    params
-  })
+    params,
+  });
 
 export { getActionList, actionZhiDing, actionDelete, getActionDetail, createAction };

@@ -28,63 +28,63 @@
   </BasicModal>
 </template>
 <script lang="ts">
-import { defineComponent, ref, toRefs, reactive } from "vue";
-import { BasicModal } from "/@/components/Modal";
-import Step1 from "./stepForm/Step1.vue";
-import Step2 from "./stepForm/Step2.vue";
-import Step3 from "./stepForm/Step3.vue";
-import { Steps } from "ant-design-vue";
+  import { defineComponent, ref, toRefs, reactive } from 'vue';
+  import { BasicModal } from '/@/components/Modal';
+  import Step1 from './stepForm/Step1.vue';
+  import Step2 from './stepForm/Step2.vue';
+  import Step3 from './stepForm/Step3.vue';
+  import { Steps } from 'ant-design-vue';
 
-export default defineComponent({
-  components: {
-    BasicModal,
-    Step1,
-    Step2,
-    Step3,
-    [Steps.name]: Steps,
-    [Steps.Step.name]: Steps.Step,
-  },
-  props: {
-    userData: { type: Object },
-  },
-  setup() {
-    const current = ref(0);
+  export default defineComponent({
+    components: {
+      BasicModal,
+      Step1,
+      Step2,
+      Step3,
+      [Steps.name]: Steps,
+      [Steps.Step.name]: Steps.Step,
+    },
+    props: {
+      userData: { type: Object },
+    },
+    setup() {
+      const current = ref(0);
 
-    const state = reactive({
-      initSetp2: false,
-      initSetp3: false,
-      step1Values: null,
-    });
+      const state = reactive({
+        initSetp2: false,
+        initSetp3: false,
+        step1Values: null,
+      });
 
-    function handleStep1Next(step1Values: any) {
-      current.value++;
-      state.initSetp2 = true;
-      state.step1Values = step1Values;
-    }
+      function handleStep1Next(step1Values: any) {
+        current.value++;
+        state.initSetp2 = true;
+        state.step1Values = step1Values;
+      }
 
-    function handleStepPrev() {
-      current.value--;
-    }
+      function handleStepPrev() {
+        current.value--;
+      }
 
-    function handleStep2Next() {
-      current.value++;
-      state.initSetp3 = true;
-    }
+      function handleStep2Next() {
+        current.value++;
+        state.initSetp3 = true;
+      }
 
-    function handleRedo() {
-      current.value = 0;
-      state.initSetp2 = false;
-      state.initSetp3 = false;
-    }
+      function handleRedo() {
+        current.value = 0;
+        state.initSetp2 = false;
+        state.initSetp3 = false;
+      }
 
-    return {
-      current,
-      handleStep1Next,
-      handleStep2Next,
-      handleRedo,
-      handleStepPrev,
-      ...toRefs(state),
-    };
-  },
-});
+      return {
+        current,
+        handleStep1Next,
+        handleStep2Next,
+        handleRedo,
+        handleStepPrev,
+        ...toRefs(state),
+      };
+    },
+  });
 </script>

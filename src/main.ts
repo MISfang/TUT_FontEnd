@@ -14,8 +14,8 @@ import { setupStore } from '/@/store';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
-import { Image } from "ant-design-vue";
-import "ant-design-vue/dist/antd.css";
+import { Image } from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 
 // Importing on demand in local development will increase the number of browser requests by around 20%.
 // This may slow down the browser refresh speed.
@@ -55,7 +55,7 @@ async function bootstrap() {
   // https://next.router.vuejs.org/api/#isready
   // await router.isReady();
 
-  app.use(Image)
+  app.use(Image);
   app.mount('#app');
 }
 

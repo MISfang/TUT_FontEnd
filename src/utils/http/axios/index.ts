@@ -166,8 +166,7 @@ const transform: AxiosTransform = {
           data: null,
         };
       }
-    } catch (error) {
-    }
+    } catch (error) {}
     return res;
   },
 
@@ -217,11 +216,13 @@ function createAxios(opt?: Partial<CreateAxiosOptions>, isUpload = false) {
         // authentication schemes，e.g: Bearer
         // authenticationScheme: 'Bearer',
         authenticationScheme: '',
-        timeout: 4 * 1000,
+        timeout: 10 * 1000,
         // 基础接口地址
         // baseURL: "127.0.0.1:7001",
 
-        headers: { 'Content-Type': isUpload ? ContentTypeEnum.FORM_URLENCODED : ContentTypeEnum.JSON },
+        headers: {
+          'Content-Type': isUpload ? ContentTypeEnum.FORM_URLENCODED : ContentTypeEnum.JSON,
+        },
         // 如果是form-data格式
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
         // 数据处理方式
